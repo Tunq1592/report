@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CsReport</title>
+<meta content="text/html; charset=UTF-8" />
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+  width: 20%;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+<h2>Customers Services</h2>
+<form>
+      <p><strong>Số Hợp Đồng</strong><br/><input type = "number" name = 'SHĐ'/></p>
+      <p>
+         <strong>Status</strong><br/>
+         <select name="Status">
+            <option> Đã Hoàn Thành </option>
+            <option> Đã Chuyển Payment </option>
+            <option> Canceled </option>
+            <option> Đã Có Lệnh Về </option>
+            <option> Close </option>
+            <option> Đã Chuyển IT </option>
+         </select>
+      </p>
+      <p><strong>Comment</strong><br/>
+         <textarea name="Comment" placeholder="Write something.." style="width: 20%;"></textarea>
+     </p>
+     <p><input type = "submit" value = 'submit'/></p>
+</form>
+<button>Export HTML table to CSV file</button>
+<br><br>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for contract number.." title="Type in a name">
+<table   id="myTable">
+  <tr>
+    <th>Datetime</th>
+    <th>TTTN</th>
+    <th>SHĐ</th>
+    <th>TKH</th>
+    <th>CMND</th>
+    <th>TTTNKH</th>
+    <th>Sreenshot</th>
+    <th>Status</th>
+    <th>CS_Team</th>
+    <th>Comment</th>
+    <th>Comment-payment</th>
+  </tr>
+  {% for row in rows %}
+   <tr class="item">
+      <td >{{row["Datetime"]}}</td>
+      <td>{{row["TTTN"]}}</td>
+      <td>{{row["SHĐ"]}}</td>
+      <td>{{row['TKH']}}</td>
+      <td>{{row['CMND']}}</td>
+      <td>{{row['TTTNKH']}}</td>
+      <td>{{row['Sreenshot']}}</td>
+      <td>{{row['Status']}}</td>
+      <td>{{row['CS_Team']}}</td>
+      <td>{{row['Comment']}}</td>
+      <td>{{row['Comment-payment']}}</td>	
+   </tr>
+   {% endfor %}
+</table>
+</script>
+<script>
+   function download_csv(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV FILE
+    csvFile = new Blob([csv],{encoding:"UTF-8",type:"text/plain;charset=UTF-8"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // We have to create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Make sure that the link is not displayed
+    downloadLink.style.display = "none";
+
+    // Add the link to your DOM
+    document.body.appendChild(downloadLink);
+
+    // Lanzamos
+    downloadLink.click();
+}
+
+function export_table_to_csv(html, filename) {
+	var csv = [];
+	var rows = document.querySelectorAll("table tr");
+	
+    for (var i = 0; i < rows.length; i++) {
+		var row = [], cols = rows[i].querySelectorAll("td, th");
+		
+        for (var j = 0; j < cols.length; j++) 
+            row.push(cols[j].innerText);
+        
+		csv.push(row.join(","));		
+	}
+
+    // Download CSV
+    download_csv(csv.join("\n"), filename);
+}
+
+document.querySelector("button").addEventListener("click", function () {
+    var html = document.querySelector("table").outerHTML;
+	export_table_to_csv(html, "table.csv");
+});
+</script>
+<script src="{{ url_for('static', filename= 'bootstable.js') }}"></script>
+</body>
+</html>

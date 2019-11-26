@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Report Payment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />   
+    </head>
+    <body>
+            <form action = "http://192.168.6.64/formpayment" method = "POST">
+                <p><strong>Số Hợp Đồng</strong><br/><input type = "number" name = 'SHĐ'/></p>
+                <p>
+                    <strong>Status</strong><br/>
+                    <select name="Status">
+                        <option> Đã Hoàn Thành </option>
+                        <option> Canceled </option>
+                        <option> Đã Có Lệnh Về </option>
+                        <option> Close </option>
+                        <option> Đã Chuyển IT </option>
+                    </select>
+                </p>
+                <p><strong>Comment payment</strong><br/>
+                    <textarea name="Comment_payment" placeholder="Write something.." style="width: 20%;"></textarea>
+                </p>
+                <p><input type = "submit" value = 'submit'/></p>
+            </form>
+    </body>
+</html>

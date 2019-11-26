@@ -1,0 +1,221 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+{{super()}}
+Custommer Service
+{% endblock %}
+
+{% block metas %}
+{{super()}}
+<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+{% endblock %}
+{% block html_attribs %} lang="en"{% endblock %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'>
+<link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
+<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/fontawesome-all.min.css'>
+<style>
+.data{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0px;
+  padding:50px 50px;
+}
+#delete-record{
+  text-align: center
+}
+.bold-blue {
+	font-weight: bold;
+	color: #0277BD;
+}
+select, input{
+  border: 2px groove;
+}
+#submit-02{
+    padding: 5px 5px;
+}
+</style>
+{% endblock %}
+{%block content%}
+<body translate="no">
+    <div class="container">
+    <h1 style="text-align: center" id= "title">Bootstrap Table </h1>
+    <div id="toolbar">
+    <select class="form-control" style="height: 20%" style="text-align: center">
+    <option value="">Export Basic</option>
+    <option value="all">Export All</option>
+    <option value="selected">Export Selected</option>
+    </select>
+    </div>
+    <br>
+    <br>
+    <div>
+      <form id="delete-record" action="http://192.168.6.64/delete" method="POST">
+          <input type="text" name="CMND" placeholder="CMND">
+          <label><b>Status: </b></label>
+                <select name="Status">
+                    <option></option>
+                    <option> New Case </option>
+                    <option> Đã Hoàn Thành </option>
+                    <option> Đã Chuyển Payment </option>
+                    <option> Canceled </option>
+                    <option> Đã Có Lệnh Về </option>
+                    <option> Close </option>
+                    <option> Đã Chuyển IT </option>
+                </select>
+          <label><b>User Tiếp Nhận: </b></label>
+                <select name="CS_Team">
+                    <option></option>
+                    <option> Huyen.Nguyen </option>
+                    <option> Chi.Nguyen </option>
+                    <option> Cuong.Luong </option>
+                    <option> Quang.Nguyen </option>
+                    <option> Tuy.Nguyen </option>
+                    <option> Quyen.Nguyen </option>
+                    <option> Thien.Nguyen </option>
+                </select>
+          <label for="start day">Start Day: </label>
+          <input type="date" name="startday">
+          <label for="end day">End Day: </label>
+          <input type="date" name="endday">
+          <input type="submit" value="Delete" id="delete-01">
+      </form>
+    </div>
+  <div class="data" id="mydata" style="padding: 10px 10px; width: 100%; margin-top: 10%">
+    <table id="DyanmicTable" class="mytable" data-toggle="table" data-search="true" data-filter-control="true"  data-click-to-select="true" data-toolbar="#toolbar"  data-pagination="true" data-page-size="10" >
+      <thead>
+        <tr>
+          <th class="datetime" data-sortable="true" >Datetime</th>
+          <th data-field="tttn" data-filter-control="select" data-sortable="true">TTTN</th>
+          <th>SHĐ</th>
+          <th>TKH</th>
+          <th>CMND</th>
+          <th>TTTNKH</th>
+          <th>Sreenshot</th>
+          <th data-field="status" data-filter-control="select" data-sortable="true">Status</th>
+          <th data-field="csteam" data-filter-control="select" data-sortable="true">Cs-Team</th>
+          <th>Comment</th>
+          <th>Comment-Payment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows[::-1] %}
+          <tr class="items">
+            <td>{{row["Datetime"]}}</td>
+            <td>{{row["TTTN"]}}</td>
+            <td>{{row["SHĐ"]}}</td>
+            <td>{{row['TKH']}}</td>
+            <td>{{row['CMND']}}</td>
+            <td>{{row['TTTNKH']}}</td>
+            <td class="link-pic">{{row['Sreenshot']}}</td>
+            <td>{{row['Status']}}</td>
+            <td>{{row['CS_Team']}}</td>
+            <td>{{row['Comment']}}</td>
+            <td>{{row['Comment_payment']}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.js'></script>
+<script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script id="rendered-js">
+    //exporte les données sélectionnées
+var $table = $('#table');
+$(function () {
+$('#toolbar').find('select').change(function () {
+  $table.bootstrapTable('refreshOptions', {
+    exportDataType: $(this).val() });
+
+});
+});
+
+var trBoldBlue = $("table");
+
+$(trBoldBlue).on("click", "tr", function () {
+$(this).toggleClass("bold-blue");
+});
+    //# sourceURL=pen.js
+</script>
+<script>
+    window.console = window.console || function(t) {};
+</script>
+<script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+</script>
+<script>
+  var obj=document.getElementById("title");
+  obj.innerHTML=("Custommer Report");
+</script>
+<script>
+  $(function(){
+  //if we use id we need $('#some-name'): or class $('.some-name'):
+    $(document).on('click', '.fa-edit', function(){
+      var _tr = $(this).closest('tr');
+      var _datetime = $(_tr).find('td:eq(1)').text();
+      var _tttn = $(_tr).find('td:eq(2)').text();
+      var _shđ = $(_tr).find('td:eq(3)').text();
+      var _tkh = $(_tr).find('td:eq(4)').text();
+      var _cmnd = $(_tr).find('td:eq(5)').text();
+      var _tttnkh = $(_tr).find('td:eq(6)').text();
+      var _sreenshot = $(_tr).find('td:eq(7)').text();
+      var _status = $(_tr).find('td:eq(8)').text();
+      var _csteam = $(_tr).find('td:eq(9)').text();
+      var _comment = $(_tr).find('td:eq(10)').text();
+      var _commentpayment = $(_tr).find('td:eq(11)').text();
+      $('input[name="Datetime"]').val(_datetime);
+      $('select[name="TTTN"]').val(_tttn);
+      $('input[name="SHĐ"]').val(_shđ);
+      $('input[name="TKH"]').val(_tkh);
+      $('input[name="CMND"]').val(_cmnd);
+      $('select[name="Status"]').val(_status);
+      $('select[name="CS_Team"]').val(_csteam);
+      $('input[name="Sreenshot"]').val(_sreenshot);
+      $('textarea[name="TTTNKH"]').val(_tttnkh);
+      $('textarea[name="Comment"]').val(_comment);
+      $('textarea[name="Comment_Payment"]').val(_commentpayment);
+    });
+  });
+</script>
+<script>
+  $(function(){
+    $(document).on('click', '.link-pic', function(){
+      var _tr = $(this).closest('tr');
+      var _sreenshot = $(_tr).find('td:eq(7)').text();
+      window.open(_sreenshot, "_blank");
+    });
+  });
+</script>
+<script>
+  $(function(){
+    $(document).on('click', '#submit-01', function(){
+      var _show_del = document.getElementById("delete-01");
+      var user = 
+      _show_del.setAttribute('style', 'display: unset');
+  });
+});
+</script>
+{% endblock %}

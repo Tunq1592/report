@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Report</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            body{
+                
+                background-clip: border-box;
+                background-color: rgb(213, 226, 231);
+            }
+            * {
+                    box-sizing: border-box;
+            }
+            .form-total{
+            position: absolute;
+            border: 5px groove gray;
+            padding: 5px;
+            right: 20%;
+            left: 20%;
+            }
+            #submit{
+                text-align: center;
+            }
+            input{
+                    width: 30%;
+                    padding: 5px 5px;
+                    margin:0px 40%;
+                    border: 2px groove; 
+            }
+             select{
+                 width: 30%;
+                 padding: 5px 5px;
+                 border: 2px groove;
+                 margin:0px 40%;
+             }
+             label{
+                 font-size: 20px;
+             }
+        </style>
+        <h1 style="text-align: center">Custommer Form</h1>       
+    </head>
+    <body>
+        <form action = "http://192.168.6.64/" method = "POST" class="form-style">
+            <br>
+            <div class="form-total">
+            <br>
+            <label><b>Datetime: </b></label>
+            <input type="date" name = 'Datetime' required />
+            <br>
+            <br>
+            <label><b>Thông Tin Tiếp Nhận: </b></label>
+                    <select name="TTTN" required>
+                        <option> CS-KH không nhận được tiền </option>
+                        <option> Thông tin thanh toán</option>
+                        <option> Hủy HĐ trạng thái chờ giải ngân </option>
+                        <option> Ghi nhận thông tin tiếp nhận trong ngày </option>
+                        <option> Closed HĐ đã giải ngân nhưng chưa active </option>
+                        <option> Cancel HĐ hoàn trả </option>
+                        <option> Thanh toán dư </option>
+                        <option> Thay đổi/bổ sung SĐT cho COL </option>
+                        <option> Thái độ nhân viên </option>
+                    </select>
+            <br>
+            <br>
+            <label><b>Số Hợp Đồng: <b></b></label>
+            <input type = "text" name = 'SHĐ' maxlength="9">
+            <br>
+            <br>
+            <label><b>Tên Khách Hàng: </b></label>
+            <input type = "text" name = 'TKH' required />
+            <br>
+            <br>
+            <label><b>CMND: </b></label>
+            <input type = "text" name = 'CMND' required />
+            <br>
+            <br>
+            <label><b>Sreenshot: </b></label>
+            <input type = "url" name = 'Sreenshot'/>
+            <br>
+            <br>               
+            <label><b>Status: </b></label>
+                <select name="Status">
+                    <option> New Case </option>
+                    <option> Đã Hoàn Thành </option>
+                    <option> Đã Chuyển Payment </option>
+                    <option> Canceled </option>
+                    <option> Đã Có Lệnh Về </option>
+                    <option> Close </option>
+                    <option> Đã Chuyển IT </option>
+                </select>
+                <br>
+                <br>
+                <label><b>User Tiếp Nhận: </b></label>
+                <select name="CS_Team" required>
+                    <option> Huyen.Nguyen </option>
+                    <option> Chi.Nguyen </option>
+                    <option> Cuong.Luong </option>
+                    <option> Quang.Nguyen </option>
+                    <option> Tuy.Nguyen </option>
+                    <option> Quyen.Nguyen </option>
+                    <option> Thien.Nguyen </option>
+                </select>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <label><b>Thông Tin Tiếp Nhận Từ Khách Hàng: </b></label>
+                <br>
+                <textarea style="width: 60%; height: 100px;" name="TTTNKH" placeholder="Write something.."></textarea>
+                <br>
+                <br>
+                <label><b>Comment-Cs:</b></label>
+                <br/>
+                <textarea style="width: 60%; height: 100px;" name="Comment" placeholder="Write something.."></textarea>
+                <br>
+                <br>
+                <label><b>Comment-Payment:</b></label>
+                <br/>
+                <textarea style="width: 60%; height: 100px;" name="Comment_Payment" placeholder="Write something.."></textarea>
+                <br>
+                <br>
+                <div id="submit">
+                <input  type = "submit" value = 'submit'/>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
